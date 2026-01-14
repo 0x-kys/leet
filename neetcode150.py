@@ -69,6 +69,31 @@ class Solution:
 
     return res
 
+  """
+  - for chars in s
+  - if char is any from ( [ or { append to list
+  - otherwise if nothing in stack then return False
+  - pop the stack (gives top)
+  - if it doesn't match either of ) ] or } return False
+  - finally return len(stack) == 0 (fulfils the condition of stack being empty if all values matched)
+  """
+  def isValid(self, s: str) -> bool:
+    stack: list(str) = []
+
+    for char in s:
+      if char == '(' or char == '[' or char == '{':
+        stack.append(char)
+      else:
+        if not stack:
+          return False
+        
+        top = stack.pop()
+
+        if char == ')' and top != '(' or char == ']' and top != '[' or char == '}' and top != '{':
+          return False
+    
+    return len(stack) == 0
+
 sol = Solution()
 
 # 1. has duplicates
@@ -97,3 +122,9 @@ print(sol.isPalindrome(s[1]))
 prices: list(list(int)) = [[10, 1, 5, 6, 7, 1], [10, 8, 7, 5, 2]]
 print(sol.maxProfit(prices[0]))
 print(sol.maxProfit(prices[1]))
+
+# 6. valid parentheses
+s: list(str) = ["[]", "([{}])", "[(])"]
+print(sol.isValid(s[0]))
+print(sol.isValid(s[1]))
+print(sol.isValid(s[2]))
