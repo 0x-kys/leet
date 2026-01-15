@@ -145,6 +145,32 @@ class Solution:
       curr = temp
 
     return prev
+  
+  """
+  - create a dummy node pointing to pointer of it
+  - compare list1 val and list2 val
+  - add smaller node to node.next
+  - move forward in the current list
+  - move node to node.next
+  - when one of the lists become empty
+  - attach remaining nodes of other list to node.next
+  - return merged.next which is head of the merged list
+  """
+  def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+    merged = node = ListNode()
+
+    while list1 and list2:
+      if list1.val < list2.val:
+        node.next = list1
+        list1 = list1.next
+      else:
+        node.next = list2
+        list2 = list2.next
+      node = node.next
+
+    node.next = list1 or list2
+
+    return merged.next
 
 def build_linked_list(arr) -> Optional[ListNode]:
   dummy = ListNode()
@@ -205,3 +231,8 @@ print(sol.search(nums, target=target[1]))
 # 8. reverse linked list
 head = build_linked_list([0, 1, 2, 3])
 print(linked_list_to_list(sol.reverseList(head)))
+
+# 9. merge two sorted linked list
+head1 = build_linked_list([1, 2, 4])
+head2 = build_linked_list([1, 3, 5])
+print(linked_list_to_list(sol.mergeTwoLists(head1, head2)))
