@@ -6,28 +6,28 @@ bool isAnagram(std::string s, std::string t)
     if (s.length() != t.length())
         return false;
 
-    int size = s.length();
+    std::unordered_map<char, int> counts;
 
-    std::unordered_map<char, int> um_s;
-    std::unordered_map<char, int> um_t;
-
-    for (char c : s)
+    for (int i = 0; i < s.length(); i++)
     {
-        um_s[c]++;
+        counts[s[i]]++;
+        counts[t[i]]--;
     }
 
-    for (char c : t)
+    for (auto const &[key, val] : counts)
     {
-        um_t[c]++;
+        if (val != 0)
+        {
+            return false;
+        }
     }
-
-    return um_s == um_t;
+    return true;
 }
 
 int main()
 {
     std::string s = "ello";
-    std::string t = "leloo";
+    std::string t = "lelo";
 
     if (isAnagram(s, t))
     {
