@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string encode(vector<string> &strs)
+{
+    string encoded = "";
+    for (string &s : strs)
+    {
+        encoded += to_string(s.size()) + '#' + s;
+    }
+    return encoded;
+}
+
+vector<string> decode(string s)
+{
+    vector<string> result;
+
+    int i = 0;
+    while (i < s.size())
+    {
+        int j = i;
+        while (s[j] != '#')
+        {
+            j++;
+        }
+
+        int length = stoi(s.substr(i, j - i));
+
+        string str = s.substr(j + 1, length);
+        result.push_back(str);
+
+        i = j + 1 + length;
+    }
+
+    return result;
+}
+
+int main()
+{
+    vector<string> strs = {"piss", "in", "the", "wind"};
+
+    string encoded = encode(strs);
+
+    cout << encoded << endl;
+
+    vector<string> decoded = decode(encoded);
+
+    for (string &str : decoded)
+    {
+        cout << str << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
